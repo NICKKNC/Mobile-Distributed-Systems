@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Environment variables (contains secrets)
+backend/.env
+.env
+.env.local
+
+# Expo
+frontend/.expo/
+frontend/dist/
+frontend/web-build/
+frontend/expo-env.d.ts
+
+# Native builds
+frontend/ios/
+frontend/android/
+frontend/.kotlin/
+
+# Logs
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.tsbuildinfo
+
+# PowerPoint output (generated file)
+CinemaPass_Presentation.pptx

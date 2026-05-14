@@ -1,0 +1,27 @@
+### Δοκιμή Εγγραφής Χρήστη
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "name": "Γιώργος Παπαδόπουλος",
+    "email": "george@example.com",
+    "password": "mysecretpassword123"
+}
+
+### Δοκιμή Σύνδεσης
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email": "george@example.com",
+    "password": "mysecretpassword123"
+}
+
+### Δοκιμή Κράτησης
+POST http://localhost:3000/bookings
+Content-Type: application/json
+
+{
+    "user_id": 1,
+    "show_id": 1
+}
