@@ -135,17 +135,6 @@ npx expo start
 
 ---
 
-### 5. (Προαιρετικό) Παραγωγή PowerPoint
-
-```bash
-cd ..
-node make_pptx.js
-```
-
-Δημιουργείται το αρχείο `CinemaPass_Presentation.pptx` στην επιφάνεια εργασίας.
-
----
-
 ## API Endpoints
 
 | Method | Endpoint | Περιγραφή | Auth |
