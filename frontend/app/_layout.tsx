@@ -1,23 +1,33 @@
 import { Stack, useRouter } from 'expo-router';
 import { useEffect, useRef } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { AuthProvider, useAuth } from '@/app/context/auth';
 
 function NavigationGuard() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
   const hasMounted = useRef(false);
 
   useEffect(() => {
+    if (isLoading) return;
     if (!hasMounted.current) {
       hasMounted.current = true;
+      if (!isAuthenticated) router.replace('/login');
       return;
     }
     if (!isAuthenticated) {
       router.replace('/login');
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, isLoading]);
 
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, backgroundColor: '#1B2232', alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator size="large" color="#3B82F6" />
+      </View>
+    );
+  }
   return null;
 }
 

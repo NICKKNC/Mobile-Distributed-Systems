@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   StyleSheet, Text, View, FlatList, ActivityIndicator,
-  TouchableOpacity, Modal, ScrollView, Pressable, Dimensions,
+  TouchableOpacity, Modal, ScrollView, Pressable, Dimensions, TextInput,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams } from 'expo-router';
@@ -13,18 +13,23 @@ import { Ionicons } from '@expo/vector-icons';
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const POSTER_COLORS = ['#1A2B45', '#2D1B4E', '#1A3A2A', '#3A1A2A', '#1E2A3A', '#2A1A3A'];
-const POSTER_ICONS: any[] = ['film', 'musical-notes', 'star', 'mic', 'headset', 'camera'];
+const POSTER_ICONS: any[] = ['ticket', 'star', 'mic', 'musical-notes', 'headset', 'camera'];
 
 export default function ShowsScreen() {
   const { id, name } = useLocalSearchParams();
   const { user } = useAuth();
   const [shows, setShows] = useState<any[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [bookingIds, setBookingIds] = useState<Set<number>>(new Set());
   const [errorMessage, setErrorMessage] = useState('');
   const [selectedShow, setSelectedShow] = useState<any | null>(null);
 
   const theatreName = typeof name === 'string' ? name : 'Θέατρο';
+
+  const filteredShows = shows.filter(s =>
+    s.title?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   useEffect(() => {
     fetchShows();
@@ -135,6 +140,21 @@ export default function ShowsScreen() {
           <Text style={styles.subtitle}>
             {user ? `Συνδεδεμένος ως ${user.name}` : 'Διαθέσιμες παραστάσεις'}
           </Text>
+          <View style={styles.searchBox}>
+            <Ionicons name="search" size={16} color="#93C5FD" />
+            <TextInput
+              style={styles.searchInput}
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              placeholder="Αναζήτηση παράστασης..."
+              placeholderTextColor="#4A6FA5"
+            />
+            {searchQuery.length > 0 && (
+              <TouchableOpacity onPress={() => setSearchQuery('')}>
+                <Ionicons name="close-circle" size={16} color="#4A6FA5" />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
 
         {loading ? (
@@ -147,14 +167,16 @@ export default function ShowsScreen() {
               <Text style={styles.retryText}>Δοκιμάστε ξανά</Text>
             </TouchableOpacity>
           </View>
-        ) : shows.length === 0 ? (
+        ) : filteredShows.length === 0 ? (
           <View style={styles.emptyState}>
             <Ionicons name="sad-outline" size={56} color="#CBD5E1" />
-            <Text style={styles.noShows}>Δεν υπάρχουν διαθέσιμες παραστάσεις.</Text>
+            <Text style={styles.noShows}>
+              {searchQuery ? 'Δεν βρέθηκαν παραστάσεις.' : 'Δεν υπάρχουν διαθέσιμες παραστάσεις.'}
+            </Text>
           </View>
         ) : (
           <FlatList
-            data={shows}
+            data={filteredShows}
             keyExtractor={(item, index) => item.show_id?.toString() ?? index.toString()}
             renderItem={renderItem}
             contentContainerStyle={styles.listContent}
@@ -270,7 +292,12 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 28, borderBottomRightRadius: 28,
   },
   theatreName: { fontSize: 24, fontWeight: '800', color: '#E2E8F0' },
-  subtitle: { fontSize: 14, color: '#93C5FD', marginTop: 6 },
+  subtitle: { fontSize: 14, color: '#93C5FD', marginTop: 6, marginBottom: 10 },
+  searchBox: {
+    flexDirection: 'row', alignItems: 'center', backgroundColor: '#243350',
+    borderRadius: 12, paddingHorizontal: 12, height: 42,
+  },
+  searchInput: { marginLeft: 8, flex: 1, color: '#E2E8F0', fontSize: 14 },
   loader: { marginTop: 60 },
   listContent: { padding: 16, paddingBottom: 32 },
 

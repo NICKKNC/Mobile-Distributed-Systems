@@ -50,9 +50,52 @@ function card(slide, x, y, w, h, title, body, titleColor) {
 }
 
 // ════════════════════════════════════════════════════════
-// SLIDE 1 — Κενή (συμπληρώνει ο χρήστης)
+// SLIDE 1 — Τίτλος
 // ════════════════════════════════════════════════════════
-darkSlide(pptx);
+{
+  const s = darkSlide(pptx);
+
+  // Μπλε λωρίδα αριστερά
+  s.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.18, h: '100%', fill: { color: BLUE } });
+
+  // Λογότυπο / εικονίδιο εφαρμογής
+  s.addShape(pptx.ShapeType.roundRect, { x: 1.1, y: 0.55, w: 1.1, h: 1.1, fill: { color: BLUE }, rectRadius: 0.2 });
+  s.addText('🎭', { x: 1.1, y: 0.6, w: 1.1, h: 1.0, align: 'center', fontSize: 36, fontFace: 'Segoe UI Emoji' });
+
+  // Τίτλος εφαρμογής
+  s.addText('TheatrePass', {
+    x: 2.4, y: 0.5, w: 7.2, h: 0.9,
+    fontSize: 52, bold: true, color: WHITE, fontFace: 'Calibri',
+  });
+
+  // Υπότιτλος
+  s.addText('Εφαρμογή Κράτησης Εισιτηρίων\nΘεάτρου & Παραστάσεων', {
+    x: 2.4, y: 1.45, w: 7.2, h: 0.9,
+    fontSize: 20, color: BLUE_LIGHT, fontFace: 'Calibri', lineSpacingMultiple: 1.3,
+  });
+
+  // Διαχωριστική γραμμή
+  s.addShape(pptx.ShapeType.rect, { x: 0.35, y: 2.55, w: 9.3, h: 0.03, fill: { color: '2D4A6B' } });
+
+  // Placeholder ονόματος (ο χρήστης το αλλάζει)
+  s.addShape(pptx.ShapeType.roundRect, { x: 0.35, y: 2.75, w: 5.5, h: 0.62, fill: { color: CARD }, line: { color: BLUE, width: 1.5 }, rectRadius: 0.1 });
+  s.addText('[ ΤΟ ΟΝΟΜΑ ΣΟΥ ΕΔΩ ]', {
+    x: 0.35, y: 2.78, w: 5.5, h: 0.56,
+    align: 'center', fontSize: 18, bold: true, color: BLUE_LIGHT, fontFace: 'Calibri',
+  });
+
+  // Έτος & Μάθημα
+  s.addText('Κινητές & Κατανεμημένες Εφαρμογές  ·  2025–2026', {
+    x: 0.35, y: 3.5, w: 9.3, h: 0.4,
+    fontSize: 14, color: GRAY, fontFace: 'Calibri',
+  });
+
+  // GitHub
+  s.addText('github.com/NICKKNC/Mobile-Distributed-Systems', {
+    x: 0.35, y: 3.95, w: 9.3, h: 0.35,
+    fontSize: 12, color: '4A6FA5', fontFace: 'Calibri',
+  });
+}
 
 // ════════════════════════════════════════════════════════
 // SLIDE 2 — Εισαγωγή
@@ -71,7 +114,7 @@ darkSlide(pptx);
     'Σύστημα κρατήσεων με δυνατότητα ακύρωσης',
     'Ασφαλής επικοινωνία Frontend ↔ Backend μέσω JWT',
   ], 0.5, 2.4, 9, 2.2);
-  s.addNotes(`Καλημέρα / Καλησπέρα σε όλους. Η εργασία μου αφορά την ανάπτυξη μιας ολοκληρωμένης εφαρμογής κράτησης εισιτηρίων για θέατρα και κινηματογράφους. Ονομάζεται CinemaPass.
+  s.addNotes(`Καλημέρα / Καλησπέρα σε όλους. Η εργασία μου αφορά την ανάπτυξη μιας ολοκληρωμένης εφαρμογής κράτησης εισιτηρίων για θέατρα και κινηματογράφους. Ονομάζεται TheatrePass.
 
 Ο βασικός στόχος ήταν να δημιουργήσω μια πλήρη εφαρμογή από το μηδέν — δηλαδή να έχω Frontend, Backend και Βάση Δεδομένων που να επικοινωνούν μεταξύ τους.
 
@@ -220,7 +263,7 @@ darkSlide(pptx);
   ], 0.5, 1.0, 5.6, 2.8);
 
   s.addText('Info Modal περιέχει:', { x: 6.3, y: 1.0, w: 3.3, h: 0.38, fontSize: 13, bold: true, color: BLUE_LIGHT, fontFace: 'Calibri' });
-  const info = ['🎬  Poster header με εικονίδιο', '💶  Τιμή εισιτηρίου', '⏱  Διάρκεια (λεπτά)', '🛡  Ηλικιακή κατηγορία', '📅  Ημερομηνία & ώρα', '📍  Αίθουσα / Σκηνή', '📝  Αναλυτική περιγραφή'];
+  const info = ['🎭  Poster header με εικονίδιο', '💶  Τιμή εισιτηρίου', '⏱  Διάρκεια (λεπτά)', '🛡  Ηλικιακή κατηγορία', '📅  Ημερομηνία & ώρα', '📍  Αίθουσα / Σκηνή', '📝  Αναλυτική περιγραφή'];
   info.forEach((line, i) => {
     s.addText(line, { x: 6.3, y: 1.48 + i * 0.43, w: 3.3, h: 0.38, fontSize: 12, color: 'CBD5E1', fontFace: 'Calibri' });
   });
@@ -298,11 +341,63 @@ darkSlide(pptx);
 }
 
 // ════════════════════════════════════════════════════════
-// SLIDE 12 — Κενή (συμπληρώνει ο χρήστης)
+// SLIDE 12 — Ευχαριστώ
 // ════════════════════════════════════════════════════════
-darkSlide(pptx);
+{
+  const s = darkSlide(pptx);
+
+  // Κουρτίνα αριστερά
+  s.addShape(pptx.ShapeType.roundRect, { x: -0.1, y: -0.1, w: 2.2, h: 7.8, fill: { color: '6B1515' }, line: { color: '6B1515' }, rectRadius: 0.2 });
+  s.addShape(pptx.ShapeType.roundRect, { x: -0.1, y: -0.1, w: 1.6, h: 7.8, fill: { color: '8B1A1A' }, line: { color: '8B1A1A' }, rectRadius: 0.2 });
+  // Πτυχές κουρτίνας αριστερά
+  s.addShape(pptx.ShapeType.rect, { x: 0.5, y: 0, w: 0.15, h: '100%', fill: { color: '5A1010' } });
+  s.addShape(pptx.ShapeType.rect, { x: 1.0, y: 0, w: 0.1, h: '100%', fill: { color: '5A1010' } });
+
+  // Κουρτίνα δεξιά
+  s.addShape(pptx.ShapeType.roundRect, { x: 8.0, y: -0.1, w: 2.2, h: 7.8, fill: { color: '6B1515' }, line: { color: '6B1515' }, rectRadius: 0.2 });
+  s.addShape(pptx.ShapeType.roundRect, { x: 8.5, y: -0.1, w: 1.7, h: 7.8, fill: { color: '8B1A1A' }, line: { color: '8B1A1A' }, rectRadius: 0.2 });
+  // Πτυχές κουρτίνας δεξιά
+  s.addShape(pptx.ShapeType.rect, { x: 9.0, y: 0, w: 0.15, h: '100%', fill: { color: '5A1010' } });
+  s.addShape(pptx.ShapeType.rect, { x: 9.45, y: 0, w: 0.1, h: '100%', fill: { color: '5A1010' } });
+
+  // Spotlight (κύκλος φωτισμού από πάνω)
+  s.addShape(pptx.ShapeType.ellipse, { x: 2.5, y: -1.5, w: 5.0, h: 5.0, fill: { color: '1E2D45' }, line: { color: '1E2D45' } });
+  s.addShape(pptx.ShapeType.ellipse, { x: 3.1, y: -1.0, w: 3.8, h: 3.8, fill: { color: '243350' }, line: { color: '243350' } });
+
+  // Εικονίδιο 🎭
+  s.addText('🎭', {
+    x: 3.0, y: 0.1, w: 4.0, h: 2.4,
+    align: 'center', fontSize: 90, fontFace: 'Segoe UI Emoji',
+  });
+
+  // Οριζόντια γραμμή
+  s.addShape(pptx.ShapeType.rect, { x: 2.2, y: 2.65, w: 5.6, h: 0.04, fill: { color: BLUE } });
+
+  // Κεντρικό μήνυμα
+  s.addText('Ευχαριστώ!', {
+    x: 1.8, y: 2.78, w: 6.4, h: 1.0,
+    align: 'center', fontSize: 54, bold: true, color: WHITE, fontFace: 'Calibri',
+  });
+
+  // Υπότιτλος
+  s.addText('Εάν υπάρχουν απορίες, είμαι στη διάθεσή σας.', {
+    x: 1.8, y: 3.82, w: 6.4, h: 0.5,
+    align: 'center', fontSize: 16, color: BLUE_LIGHT, fontFace: 'Calibri',
+  });
+
+  // Διακοσμητικές τελείες
+  [3.8, 4.7, 5.6].forEach(x => {
+    s.addShape(pptx.ShapeType.ellipse, { x, y: 4.48, w: 0.12, h: 0.12, fill: { color: BLUE }, line: { color: BLUE } });
+  });
+
+  // GitHub
+  s.addText('github.com/NICKKNC/Mobile-Distributed-Systems', {
+    x: 1.8, y: 4.75, w: 6.4, h: 0.3,
+    align: 'center', fontSize: 11, color: '4A6FA5', fontFace: 'Calibri',
+  });
+}
 
 // ── Save ────────────────────────────────────────────────
-pptx.writeFile({ fileName: 'C:/Users/loizo/Desktop/CinemaPass_Presentation.pptx' })
-  .then(() => console.log('✅  Αποθηκεύτηκε: CinemaPass_Presentation.pptx'))
+pptx.writeFile({ fileName: 'C:/Users/loizo/Desktop/TheatrePass_Presentation.pptx' })
+  .then(() => console.log('✅  Αποθηκεύτηκε: TheatrePass_Presentation.pptx'))
   .catch(e => console.error('❌  Σφάλμα:', e));

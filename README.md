@@ -1,4 +1,4 @@
-# CinemaPass 🎭
+# TheatrePass 🎭
 
 Ολοκληρωμένη εφαρμογή κράτησης εισιτηρίων για θέατρα και κινηματογράφους. Αναπτύχθηκε με React Native (Expo) στο frontend και Node.js/Express στο backend, με MariaDB ως βάση δεδομένων.
 
@@ -135,6 +135,16 @@ npx expo start
 
 ---
 
+### 5. (Προαιρετικό) Παραγωγή PowerPoint
+
+```bash
+cd ..
+node make_pptx.js
+```
+
+Δημιουργείται το αρχείο `TheatrePass_Presentation.pptx` στην επιφάνεια εργασίας.
+
+---
 ## API Endpoints
 
 | Method | Endpoint | Περιγραφή | Auth |

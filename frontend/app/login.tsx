@@ -42,8 +42,8 @@ export default function LoginScreen() {
     >
       <StatusBar barStyle="light-content" backgroundColor="#1B2232" />
       <View style={styles.card}>
-        <Ionicons name="film" size={64} color="#3B82F6" style={styles.icon} />
-        <Text style={styles.title}>CinemaPass</Text>
+        <Ionicons name="ticket-outline" size={64} color="#3B82F6" style={styles.icon} />
+        <Text style={styles.title}>TheatrePass</Text>
         <Text style={styles.subtitle}>Συνδεθείτε για να κάνετε κράτηση</Text>
 
         <View style={styles.inputContainer}>
